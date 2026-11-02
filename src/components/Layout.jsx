@@ -26,7 +26,7 @@ export default function Layout() {
       <Stack component={Link} to="/" onClick={() => setAbierto(false)} direction="row" spacing={1.3} alignItems="center" sx={{ px: 1, color: 'inherit', mb: 5 }}>
           <Box
               component="img"
-              src="/Carrito de supermercado lleno de frescura.png"
+              src={`${import.meta.env.BASE_URL}Carrito de supermercado lleno de frescura.png`}
               alt="Logo Supermarket"
               sx={{
                   width: 48,
