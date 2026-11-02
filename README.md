@@ -1,4 +1,4 @@
-# Superstock — Gestión de inventario de un supermercado
+# SuperMarket — Gestión de inventario de un supermercado
 
 **Duoc UC Online · Desarrollo Frontend II · PFY2202 · Semana 2**  
 **Actividad:** Implementando gestión de estado en componentes frontend con React.  
