@@ -1,20 +1,5 @@
 # SuperMarket — Gestión de inventario de un supermercado
 
-**Duoc UC Online · Desarrollo Frontend II · PFY2202 · Semana 2**  
-**Actividad:** Implementando gestión de estado en componentes frontend con React.  
-**Alumno:** Maximiliano Palasezze.
-
-Aplicación web desarrollada con React para registrar y consultar artículos de un supermercado. Incluye un panel de inicio, un formulario de ingreso y una tabla de inventario con filtrado. El inventario es un **estado global compartido**, por lo que cualquier artículo añadido desde el formulario aparece inmediatamente en el listado.
-
-
-## Tecnologías
-
-- **React 18**: interfaz por componentes funcionales.
-- **React Router DOM 6**: navegación entre páginas (`HashRouter`).
-- **Context API + `useReducer`**: estado global de artículos disponible en todas las páginas.
-- **Material UI (MUI)**: framework CSS y componentes visuales responsivos.
-- **Vite**: entorno de desarrollo y compilación.
-
 
 ## Páginas / rutas
 
