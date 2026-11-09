@@ -37,22 +37,12 @@ export default function Inicio() {
       <Stack spacing={.5} mb={3}>
         <Typography variant="overline" sx={{ color: '#93C5FD', fontWeight: 850, letterSpacing: '.14em' }}>BIENVENIDO A SUPERMARKET</Typography>
         <Typography variant="h4" sx={{ fontSize: { xs: 28, sm: 35 } }}>Tu supermercado, bajo control.</Typography>
-        <Typography color="text.secondary" fontSize={14.5}>Aquí podrás ver los artículos registrados y su disponibilidad.</Typography>
+        <Typography color="text.secondary" fontSize={14.5}>Un vistazo a los artículos registrados y su disponibilidad.</Typography>
       </Stack>
 
-      <Paper
-          elevation={0}
-          className="hero-card"
-          sx={{
-            borderRadius: 4,
-            bgcolor: '#172554',
-            background: 'linear-gradient(120deg, #172554 0%, #1D4ED8 100%)',
-            color: 'white',
-            p: { xs: 3, md: 4.5 },
-            mb: 3.5
-          }}
-      >
+      <Paper elevation={0} className="hero-card" sx={{ borderRadius: 4, bgcolor: '#172554', background: 'linear-gradient(120deg, #172554 0%, #1D4ED8 100%)', color: 'white', p: { xs: 3, md: 4.5 }, mb: 3.5 }}>
         <Box sx={{ position: 'relative', zIndex: 1, maxWidth: 620 }}>
+          <Chip size="small" label="GESTIÓN SIMPLE Y RÁPIDA" sx={{ bgcolor: 'rgba(233,192,125,.16)', color: '#F4D494', fontSize: 11, fontWeight: 800, letterSpacing: '.06em', mb: 2 }} />
           <Typography variant="h3" sx={{ fontSize: { xs: 29, md: 38 }, lineHeight: 1.15, mb: 1.3 }}>Todo tu inventario, en un solo lugar.</Typography>
           <Typography sx={{ color: '#DBEAFE', fontSize: 14.5, lineHeight: 1.85, maxWidth: 480, mb: 3 }}>Registra nuevos productos, revisa existencias y mantén la información organizada para tu supermercado.</Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.3} alignItems="flex-start">
@@ -92,7 +82,7 @@ export default function Inicio() {
         <Grid item xs={12} lg={4}>
           <Card sx={{ borderRadius: 3.5, height: '100%', p: 3 }}>
             <Typography variant="h6" mb={1}>¿Cómo empezar?</Typography>
-            <Typography color="text.secondary" fontSize={13.5} mb={3}>Dos pasos para mantener el inventario actualizado.</Typography>
+            <Typography color="text.secondary" fontSize={13.5} mb={3}>Tres pasos para mantener el inventario y el carrito actualizados.</Typography>
             <Stack spacing={3}>
               <Stack direction="row" spacing={1.7} alignItems="flex-start">
                 <Box sx={{ bgcolor: '#E1F3EA', color: '#12805C', width: 42, height: 42, borderRadius: 2.2, display: 'grid', placeItems: 'center', flexShrink: 0 }}><AddCircleOutlineRounded /></Box>
@@ -103,7 +93,7 @@ export default function Inicio() {
                 <Box><Typography fontWeight={800} fontSize={13.5}>2. Consulta el inventario</Typography><Typography color="text.secondary" fontSize={12.7} lineHeight={1.8}>Visualiza los artículos en la tabla y filtra por categoría.</Typography></Box>
               </Stack>
             </Stack>
-            <Button component={Link} to="/agregar" variant="outlined" fullWidth sx={{ mt: 3.5 }}>Registrar un artículo</Button>
+            <Button component={Link} to="/carrito" variant="outlined" fullWidth sx={{ mt: 3.5 }}>Ver carrito de compras</Button>
           </Card>
         </Grid>
       </Grid>
