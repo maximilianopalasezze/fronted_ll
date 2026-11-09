@@ -9,7 +9,8 @@ import {
 } from '@mui/icons-material';
 import { useInventario } from '../context/InventarioContext';
 import { tiposProducto } from '../data/productosIniciales';
-import { formatoCLP, validarArticulo } from '../utils/inventario';
+import { fechaLocal, formatoCLP, validarArticulo } from '../utils/inventario';
+import { mismoProducto } from '../context/inventarioReducer';
 import SeccionTitulo from '../components/SeccionTitulo';
 
 const vacio = { nombre: '', marca: '', tipo: '', stock: '', precio: '' };
@@ -17,7 +18,7 @@ const vacio = { nombre: '', marca: '', tipo: '', stock: '', precio: '' };
 export default function AgregarArticulo() {
   const [campos, setCampos] = useState(vacio);
   const [errores, setErrores] = useState({});
-  const { agregarArticulo } = useInventario();
+  const { agregarArticulo, articulos } = useInventario();
   const navigate = useNavigate();
 
   const cambiar = (e) => {
@@ -34,17 +35,20 @@ export default function AgregarArticulo() {
       return;
     }
     const articulo = {
-      id: `P-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+      id: `P-${crypto.randomUUID()}`,
       nombre: campos.nombre.trim(),
       marca: campos.marca.trim(),
       tipo: campos.tipo,
       stock: Number(campos.stock),
       precio: Number(campos.precio),
-      fechaIngreso: new Date().toISOString().slice(0, 10),
+      fechaIngreso: fechaLocal(),
     };
     agregarArticulo(articulo);
     navigate('/inventario', { state: { agregado: articulo.nombre } });
   };
+
+  const duplicado = campos.nombre.trim() && campos.marca.trim() && campos.tipo
+    ? articulos.find((a) => mismoProducto(a, campos)) : null;
 
   return (
     <Box>
@@ -54,9 +58,10 @@ export default function AgregarArticulo() {
           <Card sx={{ borderRadius: 3.5 }}>
             <CardContent sx={{ p: { xs: 2.5, sm: 4 }, '&:last-child': { pb: 4 } }}>
               <Stack direction="row" spacing={1.8} alignItems="center" mb={3.5}>
-                <Box sx={{ width: 48, height: 48, borderRadius: 2.5, display: 'grid', placeItems: 'center', bgcolor: '#E6F5ED', color: '#087A5A' }}><ShoppingBagOutlined /></Box>
+                <Box sx={{ width: 48, height: 48, borderRadius: 2.5, display: 'grid', placeItems: 'center', bgcolor: '#24334C', color: '#93C5FD' }}><ShoppingBagOutlined /></Box>
                 <Box><Typography variant="h6">Información del producto</Typography><Typography fontSize={12.5} color="text.secondary">Los campos marcados con * son obligatorios.</Typography></Box>
               </Stack>
+              {duplicado && <Alert severity="info" sx={{ mb: 3 }}>Este producto ya existe. Al guardar, se sumarán las unidades al stock actual ({duplicado.stock}) y el precio se actualizará a {campos.precio !== '' ? formatoCLP(campos.precio) : 'el nuevo valor ingresado'}. No se creará una fila duplicada.</Alert>}
               <Box component="form" onSubmit={enviar} noValidate aria-label="Formulario para agregar artículo">
                 <Grid container spacing={2.6}>
                   <Grid item xs={12} sm={6}>
@@ -88,7 +93,7 @@ export default function AgregarArticulo() {
         </Grid>
         <Grid item xs={12} lg={4}>
           <Stack spacing={2.5}>
-            <Paper variant="outlined" sx={{ borderRadius: 3.5, p: 3, borderColor: '#E4EDE8' }}>
+            <Paper variant="outlined" sx={{ borderRadius: 3.5, p: 3, borderColor: '#2C3B50' }}>
               <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2.5}>
                 <Typography fontWeight={800}>Vista previa</Typography>
                 <Chip size="small" label="EN EDICIÓN" sx={{ bgcolor: '#F8ECCC', color: '#967020', fontWeight: 800, fontSize: 10 }} />
@@ -101,7 +106,7 @@ export default function AgregarArticulo() {
               <Stack direction="row" justifyContent="space-between" alignItems="center"><Typography color="text.secondary" fontSize={13}>Precio unitario</Typography><Typography fontWeight={850}>{campos.precio !== '' && Number.isFinite(Number(campos.precio)) && Number(campos.precio) >= 0 ? formatoCLP(campos.precio) : '—'}</Typography></Stack>
               <Stack direction="row" justifyContent="space-between" mt={1.5}><Typography color="text.secondary" fontSize={13}>Existencias</Typography><Typography fontWeight={800} fontSize={13}>{campos.stock !== '' && Number(campos.stock) >= 0 ? `${campos.stock} unidades` : '—'}</Typography></Stack>
             </Paper>
-            <Alert icon={<CheckCircleOutlineRounded />} severity="info" sx={{ borderRadius: 3, alignItems: 'flex-start', '& .MuiAlert-message': { fontSize: 12.5, lineHeight: 1.8 } }}>Al guardar, el artículo aparecerá automáticamente en la tabla del inventario gracias al estado global compartido con React Context.</Alert>
+            <Alert icon={<CheckCircleOutlineRounded />} severity="info" sx={{ borderRadius: 3, alignItems: 'flex-start', '& .MuiAlert-message': { fontSize: 12.5, lineHeight: 1.8 } }}>Regla de duplicados: mismo nombre, marca y categoría. Se suman existencias y el último precio ingresado reemplaza al anterior. La fecha original se conserva.</Alert>
           </Stack>
         </Grid>
       </Grid>
