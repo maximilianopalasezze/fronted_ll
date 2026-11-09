@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles';
 export const theme = createTheme({
   palette: {
     mode: 'dark',
-    primary: { main: '#087A5A', dark: '#075941', contrastText: '#FFFFFF' },
+    primary: { main: '#60A5FA', dark: '#2563EB', contrastText: '#FFFFFF' },
     secondary: { main: '#E9B764' },
     background: { default: '#0B1220', paper: '#152238' },
     text: { primary: '#F1F5F9', secondary: '#A9B8CB' },
@@ -24,29 +24,10 @@ export const theme = createTheme({
   components: {
     MuiButton: { defaultProps: { disableElevation: true }, styleOverrides: { root: { borderRadius: 10, padding: '10px 18px' } } },
     MuiPaper: { styleOverrides: { root: { backgroundImage: 'none' } } },
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          border: '1px solid #2C3B50',
-          boxShadow: '0 10px 35px rgba(0,0,0,0.18)'
-        }
-      }
-    },
+    MuiCard: { styleOverrides: { root: { border: '1px solid #2C3B50', boxShadow: '0 10px 35px rgba(0,0,0,0.18)' } } },
     MuiTextField: { defaultProps: { size: 'medium', variant: 'outlined' } },
     MuiOutlinedInput: { styleOverrides: { root: { borderRadius: 11 } } },
-    MuiTableCell: {
-      styleOverrides: {
-        head: {
-          background: '#1C2B42',
-          color: '#CBD5E1',
-          fontWeight: 800,
-          fontSize: '0.78rem'
-        },
-        body: {
-          borderBottomColor: '#29384F'
-        }
-      }
-    },
+    MuiTableCell: { styleOverrides: { head: { background: '#1C2B42', color: '#CBD5E1', fontWeight: 800, fontSize: '0.78rem' }, body: { borderBottomColor: '#29384F' } } },
     MuiChip: { styleOverrides: { root: { fontWeight: 700 } } },
   },
 });
