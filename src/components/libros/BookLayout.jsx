@@ -43,7 +43,13 @@ export default function BookLayout() {
     <Box component="footer" sx={{ bgcolor: '#101C2C', borderTop: '1px solid #30455D', py: 3 }}>
       <Container maxWidth="lg"><Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" gap={1}>
         <Typography variant="caption" color="text.secondary">© 2026 Librería Horizonte. Todos los derechos reservados.</Typography>
-        <Typography variant="caption" color="text.secondary">Descubre, imagina y vive nuevas historias</Typography>
+        <Stack direction="row" alignItems="center" gap={2} flexWrap="wrap">
+          <Typography variant="caption" color="text.secondary">Descubre, imagina y vive nuevas historias</Typography>
+          <Button component={Link} to="/diagnostico" size="small" variant="text"
+            sx={{ color: '#B9D8E8', textTransform: 'none', minWidth: 0, p: 0.5, '&:hover': { color: '#FFFFFF' } }}>
+            Diagnóstico
+          </Button>
+        </Stack>
       </Stack></Container>
     </Box>
   </Box>;
