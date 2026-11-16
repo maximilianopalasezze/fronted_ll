@@ -33,3 +33,47 @@ jobs:
           name: evidencias-navegador-semana4
           path: output/validacion/
           if-no-files-found: warn
+
+  publicar:
+    name: Publicar Librería Horizonte en /semana4/
+    # Publicación únicamente después de aprobar las pruebas y solo desde la rama semana-4.
+    needs: validar
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/semana-4'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Actualizar SOLO la carpeta semana4 en gh-pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin gh-pages
+          git worktree add --detach ../gh-pages-publicacion origin/gh-pages
+          mkdir -p ../gh-pages-publicacion/semana4
+          # La limpieza está estrictamente limitada a semana4.
+          find ../gh-pages-publicacion/semana4 -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
+          cp -a dist/. ../gh-pages-publicacion/semana4/
+          cd ../gh-pages-publicacion
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- semana4
+          if git diff --cached --quiet; then
+            echo "El contenido de semana4 ya estaba actualizado."
+          else
+            git commit -m "Publicar Librería Horizonte de semana-4 en subcarpeta"
+            git push origin HEAD:gh-pages
+          fi
+      - name: Enlaces de revisión
+        run: |
+          echo "Librería Horizonte: https://maximilianopalasezze.github.io/fronted_ll/semana4/" >> "$GITHUB_STEP_SUMMARY"
+          echo "Supermarket conservado: https://maximilianopalasezze.github.io/fronted_ll/" >> "$GITHUB_STEP_SUMMARY"
