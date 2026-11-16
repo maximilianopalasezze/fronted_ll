@@ -52,8 +52,8 @@ test('GET detecta tiempo de espera agotado', async () => {
   }) }), (e) => e.codigo === 'TIMEOUT');
 });
 test('filtro de catálogo respeta categorías, búsqueda y tildes', () => {
-  const resultado = filtrarLibros(datos.libros, { texto: 'orbita', categoria: 'ciencia-ficcion' });
-  assert.deepEqual(resultado.map((libro) => libro.id), ['L003']);
+  const resultado = filtrarLibros(datos.libros, { texto: 'FUNDACION', categoria: 'ciencia-ficcion' });
+  assert.deepEqual(resultado.map((libro) => libro.id), ['L004']);
   assert.equal(datos.libros.length, 16);
 });
 test('archivos para GitHub Pages coinciden con el mock REST', () => {

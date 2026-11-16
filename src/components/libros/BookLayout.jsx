@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
-import { AutoStoriesRounded, CategoryOutlined, CloseRounded, HomeOutlined, MenuRounded, SearchRounded } from '@mui/icons-material';
+import { CategoryOutlined, CloseRounded, HomeOutlined, MenuRounded, SearchRounded } from '@mui/icons-material';
 import { Box, Button, Container, Drawer, IconButton, Stack, Toolbar, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
@@ -23,10 +23,13 @@ export default function BookLayout() {
   return <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
     <Box component="header" sx={{ bgcolor: '#101C2C', borderBottom: '1px solid #30455D', position: 'sticky', top: 0, zIndex: 1100 }}>
       <Container maxWidth="lg"><Toolbar disableGutters sx={{ minHeight: '76px !important', gap: 2 }}>
-        <Stack component={Link} to="/" direction="row" alignItems="center" spacing={1.5} sx={{ flexGrow: 1 }}>
-          <Box sx={{ width: 45, height: 45, borderRadius: 2.5, display: 'grid', placeItems: 'center', color: 'primary.light', bgcolor: '#21425B' }}><AutoStoriesRounded /></Box>
-          <Box><Typography sx={{ fontSize: 19, fontWeight: 900, lineHeight: 1.1 }}>Librería <Box component="span" sx={{ color: 'primary.light' }}>Horizonte</Box></Typography>
-            <Typography color="text.secondary" variant="caption" sx={{ letterSpacing: '.08em' }}>EXPLORA NUEVAS HISTORIAS</Typography></Box>
+        <Stack component={Link} to="/" direction="row" alignItems="center" spacing={{ xs: 1, sm: 1.5 }} sx={{ flexGrow: 1, minWidth: 0 }}>
+          <Box sx={{ width: { xs: 48, sm: 56 }, height: { xs: 48, sm: 56 }, borderRadius: '50%', overflow: 'hidden', flexShrink: 0, bgcolor: '#101C2C', border: '1px solid', borderColor: 'divider', p: '6px' }}>
+            <Box component="img" src={import.meta.env.BASE_URL + 'images/marca/logo-horizonte.png'} alt="Logo de Librería Horizonte"
+              width="1280" height="1280" sx={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain' }} />
+          </Box>
+          <Box sx={{ minWidth: 0 }}><Typography sx={{ fontSize: { xs: 16, sm: 19 }, fontWeight: 900, lineHeight: 1.1 }}>Librería <Box component="span" sx={{ color: 'primary.light' }}>Horizonte</Box></Typography>
+            <Typography color="text.secondary" variant="caption" sx={{ fontSize: { xs: 9, sm: 12 }, letterSpacing: '.08em' }}>EXPLORA NUEVAS HISTORIAS</Typography></Box>
         </Stack>
         {movil ? <IconButton aria-label="Abrir menú" onClick={() => setAbierto(true)}><MenuRounded /></IconButton> : <Navegacion cerrar={() => {}} />}
       </Toolbar></Container>
