@@ -1,0 +1,162 @@
+[
+  {
+    "id": "L001",
+    "titulo": "El faro de los recuerdos",
+    "autor": "Elena Rojas",
+    "categoriaId": "ficcion",
+    "anio": 2024,
+    "precio": 14990,
+    "resumen": "Una carta sin remitente devuelve a Martina a su ciudad natal, donde descubre una historia familiar que nunca imaginó.",
+    "destacado": true
+  },
+  {
+    "id": "L002",
+    "titulo": "Después de la lluvia",
+    "autor": "Clara Méndez",
+    "categoriaId": "ficcion",
+    "anio": 2023,
+    "precio": 12990,
+    "resumen": "Dos desconocidos coinciden en una pequeña cafetería y encuentran nuevas formas de empezar de nuevo.",
+    "destacado": false
+  },
+  {
+    "id": "L003",
+    "titulo": "La órbita de Ío",
+    "autor": "Daniel Vega",
+    "categoriaId": "ciencia-ficcion",
+    "anio": 2025,
+    "precio": 17990,
+    "resumen": "Una tripulación científica recibe una señal imposible desde una estación abandonada cerca de Júpiter.",
+    "destacado": true
+  },
+  {
+    "id": "L004",
+    "titulo": "Código Horizonte",
+    "autor": "Sofía Navarro",
+    "categoriaId": "ciencia-ficcion",
+    "anio": 2022,
+    "precio": 16990,
+    "resumen": "Cuando un algoritmo comienza a predecir el futuro, una ingeniera debe decidir qué información revelar.",
+    "destacado": false
+  },
+  {
+    "id": "L005",
+    "titulo": "El secreto de la casa azul",
+    "autor": "Valentina Muñoz",
+    "categoriaId": "misterio",
+    "anio": 2024,
+    "precio": 13990,
+    "resumen": "Una restauradora encuentra un mensaje escondido detrás de un retrato y sigue pistas de varias generaciones.",
+    "destacado": true
+  },
+  {
+    "id": "L006",
+    "titulo": "Medianoche en el puerto",
+    "autor": "Tomás Herrera",
+    "categoriaId": "misterio",
+    "anio": 2021,
+    "precio": 11990,
+    "resumen": "Un investigador reconstruye la última noche de un barco desaparecido siguiendo testimonios contradictorios.",
+    "destacado": false
+  },
+  {
+    "id": "L007",
+    "titulo": "El bosque de las siete lunas",
+    "autor": "Isabel Fuentes",
+    "categoriaId": "fantasia",
+    "anio": 2025,
+    "precio": 18990,
+    "resumen": "Una joven cartógrafa cruza un bosque encantado para recuperar los mapas de su pueblo.",
+    "destacado": true
+  },
+  {
+    "id": "L008",
+    "titulo": "La corona del viento",
+    "autor": "Nicolás Torres",
+    "categoriaId": "fantasia",
+    "anio": 2023,
+    "precio": 15990,
+    "resumen": "Un aprendiz descubre que la magia de su reino depende de una promesa olvidada.",
+    "destacado": false
+  },
+  {
+    "id": "L009",
+    "titulo": "Voces del siglo XX",
+    "autor": "Paula Contreras",
+    "categoriaId": "historia",
+    "anio": 2022,
+    "precio": 19990,
+    "resumen": "Relatos y fotografías comentadas acercan la vida cotidiana de distintas comunidades del siglo pasado.",
+    "destacado": false
+  },
+  {
+    "id": "L010",
+    "titulo": "Rutas del mundo antiguo",
+    "autor": "Andrés Salinas",
+    "categoriaId": "historia",
+    "anio": 2024,
+    "precio": 16990,
+    "resumen": "Un recorrido por antiguas rutas comerciales y las culturas que conectaron continentes.",
+    "destacado": false
+  },
+  {
+    "id": "L011",
+    "titulo": "Pequeños hábitos, grandes cambios",
+    "autor": "Camila Ortiz",
+    "categoriaId": "desarrollo-personal",
+    "anio": 2025,
+    "precio": 12990,
+    "resumen": "Ejercicios sencillos para organizar prioridades y convertir metas en acciones sostenibles.",
+    "destacado": true
+  },
+  {
+    "id": "L012",
+    "titulo": "La calma también se aprende",
+    "autor": "Fernanda Soto",
+    "categoriaId": "desarrollo-personal",
+    "anio": 2023,
+    "precio": 13990,
+    "resumen": "Una guía introductoria para desarrollar rutinas de autocuidado y atención plena.",
+    "destacado": false
+  },
+  {
+    "id": "L013",
+    "titulo": "Cartas desde el sur",
+    "autor": "Lucía Araya",
+    "categoriaId": "ficcion",
+    "anio": 2025,
+    "precio": 14990,
+    "resumen": "Un viaje por la Patagonia reúne a tres generaciones a través de antiguas cartas.",
+    "destacado": false
+  },
+  {
+    "id": "L014",
+    "titulo": "Proyecto Aurora",
+    "autor": "Mateo Silva",
+    "categoriaId": "ciencia-ficcion",
+    "anio": 2024,
+    "precio": 17490,
+    "resumen": "En una colonia orbital, una astrónoma busca el origen de una misteriosa fuente de luz.",
+    "destacado": false
+  },
+  {
+    "id": "L015",
+    "titulo": "La biblioteca invisible",
+    "autor": "Emilia Reyes",
+    "categoriaId": "fantasia",
+    "anio": 2025,
+    "precio": 16990,
+    "resumen": "Un estudiante descubre una biblioteca cuyos libros cambian con cada lector.",
+    "destacado": false
+  },
+  {
+    "id": "L016",
+    "titulo": "La última pista",
+    "autor": "Gabriel Pizarro",
+    "categoriaId": "misterio",
+    "anio": 2025,
+    "precio": 15490,
+    "resumen": "Un periodista recibe un cuaderno que parece anticipar crímenes que todavía no han ocurrido.",
+    "destacado": false
+  }
+]

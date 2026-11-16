@@ -1,101 +1,79 @@
-# Supermarket — Semana 3 | Desarrollo Frontend II (PFY2202)
+# Librería Horizonte — Semana 4 · Desarrollo Frontend II (PFY2202)
 
-**Actividad sumativa:** Desarrollando sitios web con React avanzado.  
-**Estudiante:** Maximiliano Palasezze · Duoc UC Online.  
-**Código:** https://github.com/maximilianopalasezze/fronted_ll  
-**Página:** https://maximilianopalasezze.github.io/fronted_ll/
+**Estudiante:** Maximiliano Palasezze · Duoc UC  
+**Rama de trabajo:** \`semana-4\`  
+**Repositorio:** https://github.com/maximilianopalasezze/fronted_ll/tree/semana-4
 
-Esta entrega **continúa el proyecto de la Semana 2**. Incluye inicio, registro de artículos, inventario con filtro por categoría, pantalla de detalle y carrito con modificación dinámica de existencias. Las unidades del carrito se consideran *reservadas*: al agregarlas disminuye el stock, y al reducir o quitar un producto regresan al inventario.
+Esta es la continuación separada de la entrega de la Semana 3. **La rama \`main\` conserva Supermarket.** La Semana 4 pide una tienda de libros con categorías obtenidas desde un mock REST y navegación React Router.
 
-## Requisitos implementados
+## Requisitos
 
-| Pauta Semana 3 | Implementación |
-|---|---|
-| Listado completo (15) | Nombre, marca, categoría, precio, stock, estado, fecha y botón de detalle |
-| Filtro dinámico (15) | Estado local de categoría/búsqueda + `useMemo`; inventario original intacto |
-| Detalle interactivo (15) | Ruta `/#/inventario/:id`, selección de cantidad y agregar al carrito |
-| Modificación del inventario (15) | `useReducer` aplica cambios de carrito y stock de manera atómica |
-| Framework CSS (15) | Material UI 5, tema oscuro responsive, semántica y controles accesibles |
-| Modularidad (15) | `FilaArticulo`, `ControlCantidad`, vistas separadas, Context API, utilidades |
-| Publicación (10) | Repositorio GitHub con README, rama de despliegue `gh-pages` |
+- React 18 + Vite 5, JavaScript, HTML, CSS, Material UI 5, React Router 6 con HashRouter.
+- Mock REST local real, provisto por middleware Vite: \`GET /api/categorias\`, \`GET /api/libros\`, \`GET /api/libros?categoria=ficcion\`, \`GET /api/libros/L001\`.
+- Datos centralizados en \`mock/db.json\` (categorías y libros ficticios).
+- Versión estática del mock en \`public/mock/\` para GitHub Pages, sincronizada automáticamente al ejecutar \`npm run build\`. **En Pages se consulta JSON por HTTP, no se ejecuta el servidor REST Vite**.
+- Manejo explícito de 404, 500, fallo de red, tiempo de espera, JSON inválido y formatos inesperados.
+- Skeletons al cargar; estados vacíos; mensajes accesibles; reintentos; enlaces de regreso.
+- Caché de 5 minutos y deduplicación de solicitudes simultáneas; filtrado local con \`useMemo\`.
+- Demostración de errores desde el desplegable "Simulador de errores REST" en \`/#/catalogo\`.
 
-## Cómo ejecutar en IntelliJ IDEA / PowerShell
+> Nota: el simulador usa \`?error=404\` o \`?error=500\` contra el servidor de desarrollo. En GitHub Pages, que es estático, el 404 se obtiene solicitando un archivo inexistente y el 500 se simula con un \`Response\` local. El fallo de red también se simula de forma controlada. Estos modos se usan solo como evidencias, no representan fallos reales del alojamiento.
 
-Necesitas Node.js 18+; se recomienda Node 20 o 22.
+## Ejecutar y probar en el computador
 
-```powershell
-npm install
-npm run dev
-```
+Requiere Node.js 20 recomendado (18 o superior para este proyecto).
 
-Luego abre `http://localhost:5173` (o la URL mostrada por Vite).
-
-### Pruebas y compilación
-
-```powershell
+\`\`\`powershell
+git clone --branch semana-4 --single-branch https://github.com/maximilianopalasezze/fronted_ll.git
+cd fronted_ll
+npm ci
 npm test
+npm run dev
+\`\`\`
+
+Abrir la URL que muestra Vite, habitualmente \`http://localhost:5173\`. Comprobar el mock desde \`http://localhost:5173/api/categorias\` y \`http://localhost:5173/api/libros\`.
+
+Para probar producción local:
+
+\`\`\`powershell
 npm run build
 npm run preview
-```
+\`\`\`
 
-### Publicación en GitHub Pages
+## Publicación de la Semana 4 (sin alterar el sitio publicado de main)
 
-`vite.config.js` usa `base: './'` y las rutas usan `HashRouter` para funcionar dentro del subdirectorio de GitHub Pages. Después de subir `main`, ejecutar:
+**La URL existente de GitHub Pages todavía publica Supermarket** hasta que expresamente se despliegue una versión diferente. No ejecutar \`npx gh-pages -d dist\` sobre el mismo destino sin decidir primero si se quiere reemplazar la publicación anterior. La rama de Semana 4 se mantiene separada para correcciones. Puede publicarse en un repositorio o destino de Pages separado.
 
-```powershell
-npm run build
-npx gh-pages -d dist
-```
+## Arquitectura
 
-En Settings → Pages: Deploy from a branch, rama `gh-pages`, carpeta `/(root)`.
+\`\`\`text
+mock/db.json                    # Fuente única de datos ficticios
+server/mockApi.js               # Resolvedor REST GET y estados HTTP
+server/viteMockPlugin.js        # Middleware de desarrollo
+scripts/sync-mock.mjs           # Generación JSON para publicación estática
+public/mock/                    # JSON accesible en GitHub Pages
+src/services/http.js            # Cliente fetch, errores y timeout
+src/services/librosApi.js       # Endpoints, caché y deduplicación
+src/hooks/useRecurso.js         # Estado de carga/error y reintento
+src/utils/catalogo.js          # Búsqueda y filtrado derivados
+src/components/libros/          # Layout, tarjetas y feedback reutilizables
+src/pages/libros/               # Inicio, categorías, catálogo, detalle y 404
+tests/rest.test.js              # Pruebas automatizadas de REST y errores
+\`\`\`
 
-## Rutas
+## Pruebas manuales para evidencias
 
-- `/#/`: inicio e indicadores.
-- `/#/agregar`: registro con validación por campo.
-- `/#/inventario`: tabla y filtro de categorías sin pérdida de artículos.
-- `/#/inventario/P001`: detalle de ejemplo (también desde el enlace de cada producto).
-- `/#/carrito`: listado de artículos reservados, botones `+`, `−` y quitar.
-- `/#/404`: manejo de rutas no existentes.
+1. Inicio: categorías provenientes de la petición HTTP.
+2. Categorías: cards y navegación a libros de esa categoría.
+3. Catálogo: filtrado por autor, título y categoría; búsqueda con tildes y sin tildes.
+4. Detalle: abrir un libro y volver.
+5. DevTools Network: comprobar \`GET /api/categorias\` y \`GET /api/libros\` localmente.
+6. DevTools: confirmar ausencia de cargas repetidas innecesarias al navegar.
+7. En catálogo elegir 404 y comprobar mensaje y Reintentar.
+8. Repetir con 500, fallo de red y volver a consulta normal.
+9. Verificar skeletons de carga y visualización móvil.
+10. Ejecutar \`npm test\` y \`npm run build\`.
 
-## Reglas de negocio explícitas
+## Observación sobre la pauta
 
-1. **Duplicados:** se consideran iguales si coinciden nombre, marca y categoría después de normalizar mayúsculas y espacios. Reingresar unidades **suma stock** y el **último precio** reemplaza el anterior. Se conserva el identificador y la fecha de ingreso del original. El formulario avisa esta regla.
-2. **Carrito y stock:** añadir *n* unidades resta *n* del inventario; incrementar resta una; disminuir devuelve una; quitar devuelve todas. No se puede agregar más que lo disponible, aceptar cantidades no enteras, ni dejar stock negativo. Al disminuir a cero, se elimina la línea del carrito.
-3. **Eliminar producto:** si tiene unidades en el carrito, se deshabilita su eliminación para no perder la reserva.
-4. **Fechas:** los productos nuevos usan fecha local del navegador en formato `AAAA-MM-DD`, sin `toISOString()` para evitar discrepancias por UTC.
-5. **Identificadores:** nuevos artículos usan `crypto.randomUUID()` en entorno HTTPS o localhost.
-6. **Persistencia:** estado global de inventario y carrito en `localStorage` con clave versión 2. Se migran automáticamente productos guardados con la clave versión 1 de la Semana 2. Se almacenan por navegador y dispositivo; no existe servidor multiusuario.
-7. **Precios:** el total del carrito usa el precio actual del producto. Es una simulación académica, sin pagos reales.
-
-## Organización del código
-
-```text
-src/
-  components/        # Layout, SeccionTitulo, FilaArticulo, ControlCantidad
-  context/           # InventarioProvider + reducer global atómico
-  data/              # Productos iniciales, categorías
-  pages/             # Inicio, AgregarArticulo, Inventario, DetalleArticulo, Carrito, 404
-  utils/             # Validación con regex, fecha local, filtro y formato
-  App.jsx            # Rutas
-  main.jsx           # ThemeProvider, HashRouter, InventarioProvider
-  theme.js           # Tema Material UI oscuro
-  styles.css         # CSS complementario
- tests/              # Pruebas de lógica de stock, carrito, filtro y validación
-```
-
-## Tecnologías / compatibilidad
-
-React 18, `react-router-dom` **6.28**, Context API, `useReducer`, Material UI **5**, Vite 5. No se migra a React Router 7 porque la instalación v6 actual ya es compatible con estos imports, y una migración debe probarse por separado. El proyecto no usa backend.
-
-## Pruebas manuales sugeridas
-
-1. Registrar producto válido, comprobar su aparición y persistencia al recargar.
-2. Reingresar mismo nombre/marca/tipo con otra cantidad y precio: una sola fila, stock acumulado, nuevo precio.
-3. Filtrar por Bebidas y volver a Todas: restaurar todas las filas, sin pérdida.
-4. Abrir detalle de `Bebida cola 1,5 L`, añadir 3: stock 18 → 15, carrito 3.
-5. En carrito pulsar `+`: stock 15 → 14, cantidad 4; pulsar `−`: stock 14 → 15, cantidad 3.
-6. Quitar producto: stock vuelve a 18, carrito vacío.
-7. Intentar agregar más que lo disponible o agregar un producto agotado: acción deshabilitada/rechazada.
-8. Recargar estando en el carrito: los artículos y las existencias deben conservarse.
-9. Repetir en ancho móvil; menú lateral, tarjetas y controles deben ser utilizables.
+La instrucción Word incluye el nombre de repositorio \`hospital-nombre-apellido-siglaCurso\`, a pesar de describir una **tienda de libros**. Este proyecto conserva \`fronted_ll\` en una rama de desarrollo tal como se solicitó para continuar el trabajo. Confirmar con el profesor el nombre final requerido antes de entregar.
