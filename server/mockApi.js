@@ -16,7 +16,12 @@ export function resolverMock(method, ruta, parametros, datos) {
     return { estado: 200, cuerpo: libros };
   }
   if (ruta.startsWith('/api/libros/')) {
-    const id = decodeURIComponent(ruta.slice('/api/libros/'.length));
+    let id;
+    try {
+      id = decodeURIComponent(ruta.slice('/api/libros/'.length));
+    } catch {
+      return { estado: 400, cuerpo: { mensaje: 'Identificador de libro inválido.' } };
+    }
     const libro = datos.libros.find((l) => l.id === id);
     return libro
       ? { estado: 200, cuerpo: libro }

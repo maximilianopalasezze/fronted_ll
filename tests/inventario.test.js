@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { ACCIONES, inventarioReducer } from '../src/context/inventarioReducer.js';
-import { fechaLocal, filtrarArticulos, obtenerEstadoStock, validarArticulo } from '../src/utils/inventario.js';
+// Regresión de Semana 3: fixtures aislados del código de la librería.
+import { ACCIONES, inventarioReducer } from './legado/inventarioReducer.js';
+import { fechaLocal, filtrarArticulos, obtenerEstadoStock, validarArticulo } from './legado/inventario.js';
 
 const producto = { id: 'P-1', nombre: 'Bebida cola 1,5 L', marca: 'Coca-Cola', tipo: 'Bebidas', stock: 18, precio: 1990, fechaIngreso: '2026-11-08' };
 const otro = { id: 'P-2', nombre: 'Arroz', marca: 'Tucapel', tipo: 'Alimentos', stock: 5, precio: 1690 };

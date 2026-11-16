@@ -1,26 +1,32 @@
 import { useCallback, useEffect, useState } from 'react';
 import { consultarRecurso, limpiarCache } from '../services/librosApi.js';
 
-// El mismo recurso se consulta una sola vez mientras haya una petición en curso.
-// El efecto ignora respuestas atrasadas si se cambia de pantalla o de modo.
-export function useRecurso(recurso, modo = 'normal') {
+const clientePublico = { consultarRecurso, limpiarCache };
+const estadoInicial = { datos: [], cargando: true, error: null, fuente: null, diagnostico: null };
+
+// La clave impide mostrar datos de un recurso anterior incluso antes de ejecutar
+// el efecto. Una actualización fallida conserva los últimos datos de esa clave.
+export function useRecurso(recurso, modo = 'normal', cliente = clientePublico) {
   const [intento, setIntento] = useState(0);
-  const [estado, setEstado] = useState({ datos: [], cargando: true, error: null, fuente: null });
+  const clave = recurso + ':' + modo;
+  const [estado, setEstado] = useState({ ...estadoInicial, clave, cliente });
   const reintentar = useCallback(() => {
-    limpiarCache(recurso);
+    cliente.limpiarCache(recurso);
+    setEstado((previo) => ({ ...(previo.clave === clave && previo.cliente === cliente ? previo : estadoInicial), clave, cliente, cargando: true, error: null }));
     setIntento((anterior) => anterior + 1);
-  }, [recurso]);
+  }, [recurso, clave, cliente]);
   useEffect(() => {
     let vigente = true;
-    setEstado((previo) => ({ ...previo, cargando: true, error: null }));
-    consultarRecurso(recurso, { forzar: intento > 0, modo })
-      .then(({ datos, fuente }) => {
-        if (vigente) setEstado({ datos, cargando: false, error: null, fuente });
+    setEstado((previo) => ({ ...(previo.clave === clave && previo.cliente === cliente ? previo : estadoInicial), clave, cliente, cargando: true, error: null }));
+    cliente.consultarRecurso(recurso, { modo })
+      .then(({ datos, fuente, diagnostico }) => {
+        if (vigente) setEstado({ datos, cargando: false, error: null, fuente, diagnostico, clave, cliente });
       })
       .catch((error) => {
-        if (vigente) setEstado({ datos: [], cargando: false, error, fuente: null });
+        if (vigente) setEstado((previo) => ({ ...previo, cargando: false, error, fuente: null, diagnostico: error.diagnostico || null, clave, cliente }));
       });
     return () => { vigente = false; };
-  }, [recurso, modo, intento]);
-  return { ...estado, reintentar };
+  }, [recurso, modo, clave, intento, cliente]);
+  const actual = estado.clave === clave && estado.cliente === cliente ? estado : estadoInicial;
+  return { ...actual, reintentar };
 }

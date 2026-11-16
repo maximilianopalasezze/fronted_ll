@@ -8,6 +8,7 @@
     "build": "node scripts/sync-mock.mjs && vite build",
     "preview": "vite preview",
     "test": "node --test",
+    "test:browser": "node --experimental-websocket scripts/verificar-navegador.mjs",
     "sync:mock": "node scripts/sync-mock.mjs"
   },
   "dependencies": {

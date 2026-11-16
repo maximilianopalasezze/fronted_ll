@@ -3,10 +3,14 @@ on:
   push:
     branches: [semana-4]
   pull_request:
-    branches: [main]
+    branches: [semana-4]
+  workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   validar:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -16,3 +20,16 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+      - run: npm run test:browser
+      # Un artefacto descargable no publica ni sobrescribe GitHub Pages.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: libreria-horizonte-semana4-dist
+          path: dist/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidencias-navegador-semana4
+          path: output/validacion/
+          if-no-files-found: warn
