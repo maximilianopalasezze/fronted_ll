@@ -1,4 +1,0 @@
-Librería Horizonte — Semana 4
-Código fuente: branch semana-4
-Build: 235149e5bd7b47a812a82dc9c5974e5d591ad67a
-Destino: /fronted_ll/semana4/
