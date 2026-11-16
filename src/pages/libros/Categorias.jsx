@@ -4,13 +4,12 @@ import EstadoSolicitud from '../../components/libros/EstadoSolicitud.jsx';
 import TarjetaCategoria from '../../components/libros/TarjetaCategoria.jsx';
 import { useRecurso } from '../../hooks/useRecurso.js';
 export default function Categorias() {
-  const { datos, cargando, error, reintentar, fuente } = useRecurso('categorias');
+  const { datos, cargando, error, reintentar, } = useRecurso('categorias');
   return <Box>
-    <Encabezado etiqueta="API REST · GET /categorias" titulo="Categorías de libros"
-      descripcion="Explora los géneros disponibles. Las categorías se consultan mediante HTTP GET, sin duplicar solicitudes innecesarias." />
+    <Encabezado titulo="Categorías de libros"
+      descripcion="Explora los géneros disponibles." />
     <Stack direction="row" gap={1} mb={3} flexWrap="wrap">
       <Chip label={cargando ? 'Consultando servicio…' : error ? 'Error de consulta' : datos.length + ' categorías disponibles'} color="primary" variant="outlined" />
-      {!cargando && !error && <Chip label={'Origen: ' + fuente} variant="outlined" />}
     </Stack>
     <EstadoSolicitud cargando={cargando} error={error} reintentar={reintentar} vacio={!datos.length && !error && !cargando} etiqueta="categorías" />
     {!cargando && !error && <Grid container spacing={3}>{datos.map((categoria) =>

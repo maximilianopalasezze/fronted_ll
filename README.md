@@ -4,18 +4,8 @@
 **Rama de trabajo:** \`semana-4\`  
 **Repositorio:** https://github.com/maximilianopalasezze/fronted_ll/tree/semana-4
 
-Esta es la continuación separada de la entrega de la Semana 3. **La rama \`main\` conserva Supermarket.** La Semana 4 pide una tienda de libros con categorías obtenidas desde un mock REST y navegación React Router.
 
-## Requisitos
 
-- React 18 + Vite 5, JavaScript, HTML, CSS, Material UI 5, React Router 6 con HashRouter.
-- Mock REST local real, provisto por middleware Vite: \`GET /api/categorias\`, \`GET /api/libros\`, \`GET /api/libros?categoria=ficcion\`, \`GET /api/libros/L001\`.
-- Datos centralizados en \`mock/db.json\` (categorías y libros ficticios).
-- Versión estática del mock en \`public/mock/\` para GitHub Pages, sincronizada automáticamente al ejecutar \`npm run build\`. **En Pages se consulta JSON por HTTP, no se ejecuta el servidor REST Vite**.
-- Manejo explícito de 404, 500, fallo de red, tiempo de espera, JSON inválido y formatos inesperados.
-- Skeletons al cargar; estados vacíos; mensajes accesibles; reintentos; enlaces de regreso.
-- Caché de 5 minutos y deduplicación de solicitudes simultáneas; filtrado local con \`useMemo\`.
-- Demostración de errores desde el desplegable "Simulador de errores REST" en \`/#/catalogo\`.
 
 > Nota: el simulador usa \`?error=404\` o \`?error=500\` contra el servidor de desarrollo. En GitHub Pages, que es estático, el 404 se obtiene solicitando un archivo inexistente y el 500 se simula con un \`Response\` local. El fallo de red también se simula de forma controlada. Estos modos se usan solo como evidencias, no representan fallos reales del alojamiento.
 
@@ -40,9 +30,6 @@ npm run build
 npm run preview
 \`\`\`
 
-## Publicación de la Semana 4 (sin alterar el sitio publicado de main)
-
-**La URL existente de GitHub Pages todavía publica Supermarket** hasta que expresamente se despliegue una versión diferente. No ejecutar \`npx gh-pages -d dist\` sobre el mismo destino sin decidir primero si se quiere reemplazar la publicación anterior. La rama de Semana 4 se mantiene separada para correcciones. Puede publicarse en un repositorio o destino de Pages separado.
 
 ## Arquitectura
 
@@ -74,6 +61,3 @@ tests/rest.test.js              # Pruebas automatizadas de REST y errores
 9. Verificar skeletons de carga y visualización móvil.
 10. Ejecutar \`npm test\` y \`npm run build\`.
 
-## Observación sobre la pauta
-
-La instrucción Word incluye el nombre de repositorio \`hospital-nombre-apellido-siglaCurso\`, a pesar de describir una **tienda de libros**. Este proyecto conserva \`fronted_ll\` en una rama de desarrollo tal como se solicitó para continuar el trabajo. Confirmar con el profesor el nombre final requerido antes de entregar.

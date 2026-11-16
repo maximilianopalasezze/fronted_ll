@@ -39,8 +39,8 @@ export default function BookLayout() {
     <Container component="main" maxWidth="lg" sx={{ flexGrow: 1, py: { xs: 4, sm: 5 } }}><Outlet /></Container>
     <Box component="footer" sx={{ bgcolor: '#101C2C', borderTop: '1px solid #30455D', py: 3 }}>
       <Container maxWidth="lg"><Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" gap={1}>
-        <Typography variant="caption" color="text.secondary">Librería Horizonte · Demostración académica REST mock</Typography>
-        <Typography variant="caption" color="text.secondary">PFY2202 · Desarrollo Frontend II · Semana 4</Typography>
+        <Typography variant="caption" color="text.secondary">© 2026 Librería Horizonte. Todos los derechos reservados.</Typography>
+        <Typography variant="caption" color="text.secondary">Descubre, imagina y vive nuevas historias</Typography>
       </Stack></Container>
     </Box>
   </Box>;

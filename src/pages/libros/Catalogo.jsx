@@ -12,7 +12,7 @@ export default function Catalogo() {
   const categoria = parametros.get('categoria') || 'todas';
   const modo = parametros.get('demo') || 'normal';
   const [texto, setTexto] = useState('');
-  const { datos: libros, cargando, error, fuente, reintentar } = useRecurso('libros', modo);
+  const { datos: libros, cargando, error, reintentar } = useRecurso('libros', modo);
   const { datos: categorias } = useRecurso('categorias');
   const visibles = useMemo(() => filtrarLibros(libros, { texto, categoria }), [libros, texto, categoria]);
   const nombreCategoria = categorias.find((c) => c.id === categoria)?.nombre;
@@ -23,8 +23,8 @@ export default function Catalogo() {
     setParametros(siguientes);
   };
   return <Box>
-    <Encabezado etiqueta="API REST · GET /libros" titulo="Catálogo de libros"
-      descripcion="Busca por título o autor y filtra por categoría sin alterar el listado original. El resultado proviene de la API REST mock."
+    <Encabezado titulo="Catálogo de libros"
+      descripcion="Busca por título o autor y filtra por categoría sin alterar el listado original."
       accion={<Button variant="outlined" onClick={reintentar} startIcon={<RefreshRounded />}>Actualizar datos</Button>} />
     <Grid container spacing={2} mb={2.5}>
       <Grid item xs={12} md={6}>
@@ -37,7 +37,7 @@ export default function Catalogo() {
         {categorias.map((c) => <MenuItem key={c.id} value={c.id}>{c.nombre}</MenuItem>)}
         {categoria !== 'todas' && !categorias.some((c) => c.id === categoria) && <MenuItem value={categoria}>Categoría desconocida</MenuItem>}
       </TextField></Grid>
-      <Grid item xs={12} md={3}><TextField fullWidth select label="Simulador de errores REST" value={modo}
+      <Grid item xs={12} md={3}><TextField fullWidth select label="Simulador de errores" value={modo}
         onChange={(e) => actualizar('demo', e.target.value)} helperText="Prueba las respuestas y usa Reintentar">
         <MenuItem value="normal">Consulta normal</MenuItem>
         <MenuItem value="404">Simular HTTP 404</MenuItem>
@@ -48,7 +48,6 @@ export default function Catalogo() {
     <Stack direction="row" gap={1} alignItems="center" flexWrap="wrap" sx={{ mb: 3 }} aria-live="polite">
       <Chip color={error ? 'error' : 'primary'} variant="outlined" label={cargando ? 'Cargando libros…' : error ? 'Consulta fallida' : visibles.length + ' libros encontrados'} />
       {nombreCategoria && <Chip label={'Filtro: ' + nombreCategoria} />}
-      {!cargando && !error && <Chip variant="outlined" label={'Origen: ' + fuente} />}
       {modo !== 'normal' && <Button size="small" onClick={() => actualizar('demo', 'normal')}>Volver al modo normal</Button>}
     </Stack>
     <EstadoSolicitud cargando={cargando} error={error} reintentar={reintentar} vacio={!cargando && !error && visibles.length === 0} etiqueta="libros" />
@@ -56,7 +55,7 @@ export default function Catalogo() {
       {visibles.map((libro) => <Grid item xs={12} sm={6} md={4} key={libro.id}>
         <TarjetaLibro libro={libro} categoria={categorias.find((c) => c.id === libro.categoriaId)} />
       </Grid>)}</Grid>
-      <Typography color="text.secondary" fontSize={12} mt={3}>Los datos son de demostración académica, no publicaciones comerciales reales.</Typography>
+      <Typography color="text.secondary" fontSize={12} mt={3}>si buscas algun libro especifico escribenos al whatsapp para consultarnos</Typography>
     </>}
   </Box>;
 }
