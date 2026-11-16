@@ -1,0 +1,44 @@
+[
+  {
+    "id": "ficcion",
+    "nombre": "Ficción",
+    "descripcion": "Historias contemporáneas, emociones y grandes personajes.",
+    "icono": "📖",
+    "imagen": "images/categorias/ficcion.png"
+  },
+  {
+    "id": "ciencia-ficcion",
+    "nombre": "Ciencia ficción",
+    "descripcion": "Universos futuros, ciencia y nuevas posibilidades.",
+    "icono": "🚀",
+    "imagen": "images/categorias/ciencia-ficcion.png"
+  },
+  {
+    "id": "misterio",
+    "nombre": "Misterio",
+    "descripcion": "Intrigas, secretos y enigmas por resolver.",
+    "icono": "🔎",
+    "imagen": "images/categorias/misterio.png"
+  },
+  {
+    "id": "fantasia",
+    "nombre": "Fantasía",
+    "descripcion": "Mundos mágicos y aventuras extraordinarias.",
+    "icono": "✨",
+    "imagen": "images/categorias/fantasia.png"
+  },
+  {
+    "id": "historia",
+    "nombre": "Historia",
+    "descripcion": "Otras épocas, culturas y acontecimientos.",
+    "icono": "🏛️",
+    "imagen": "images/categorias/historia.png"
+  },
+  {
+    "id": "desarrollo-personal",
+    "nombre": "Desarrollo personal",
+    "descripcion": "Ideas prácticas para aprender y crecer.",
+    "icono": "🌱",
+    "imagen": "images/categorias/desarrollo-personal.png"
+  }
+]
