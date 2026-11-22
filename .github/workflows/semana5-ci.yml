@@ -1,0 +1,50 @@
+name: Semana 5 · Pruebas y preparación
+on:
+  push:
+    branches: [semana-5]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      # Primera actualización: al sumar MSW y Tailwind es necesario regenerar el lock.
+      - name: Instalar y sincronizar dependencias
+        run: npm install --no-audit --no-fund
+      - name: Comprobar tests de Semana 5
+        run: npm test
+      - name: Compilar y generar mockServiceWorker
+        run: npm run build
+      - name: Verificar recursos necesarios
+        shell: bash
+        run: |
+          test -s dist/index.html
+          test -s dist/mockServiceWorker.js
+          test -n "$(find dist/assets -name '*.js' -print -quit)"
+          echo "Semana 5 compilada con Service Worker."
+      - uses: actions/upload-artifact@v4
+        with:
+          name: semana5-agencia-viajes-dist
+          path: dist/
+          if-no-files-found: error
+      - name: Actualizar lockfile y worker de MSW para reproducibilidad
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add package-lock.json public/mockServiceWorker.js
+          if ! git diff --cached --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Semana 5: sincronizar lockfile y Service Worker [skip ci]"
+            git push origin HEAD:semana-5
+          fi
