@@ -9,7 +9,8 @@
     "prebuild": "msw init public --save",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node --test tests/viajes.test.js tests/viajesHttp.test.js"
+    "test": "node --test tests/viajes.test.js tests/viajesHttp.test.js",
+    "test:browser": "node --experimental-websocket scripts/verificar-viajes-navegador.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
