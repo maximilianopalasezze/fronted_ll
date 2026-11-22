@@ -30,7 +30,8 @@ export function opcionesDeDestino(destinoId) {
       id, aerolinea, origen:'Santiago de Chile', salida, regreso, precio, disponibles:cupos>0, cupos
     })),
     hoteles: entrada.hoteles.map(([id,nombre,estrellas,precioNoche,habitaciones])=>({
-      id, nombre, estrellas, precioNoche, disponibles:habitaciones>0, habitaciones
+      id, nombre, estrellas, precioNoche, disponibles:habitaciones>0, habitaciones,
+      fechaEntrada:entrada.vuelos[0][2], fechaSalida:entrada.vuelos[0][3]
     }))
   };
 }

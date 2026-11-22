@@ -103,13 +103,18 @@ try{
     console.log('✓ '+item.name+' POST GraphQL y opciones específicas de Cusco');approved++;
     const capturaDetalle=await tab.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
     await writeFile(path.join(salida,item.name.replaceAll(' ','-')+'-detalle.png'),Buffer.from(capturaDetalle.data,'base64'));
-    await tab.click('button:has(svg)'); // la vista mantiene navegación sin recarga; control visual
+    await tab.eval('(()=>{const boton=[...document.querySelectorAll("button")].find(b=>b.textContent.includes("Actualizar información"));if(!boton)throw Error("No existe actualizar");boton.click()})()');
+    await tab.until('document.body.innerText.includes("Actualizando") && document.body.innerText.includes("Vuelos disponibles")',item.name+' actualización conservando listado');
     await tab.send('Emulation.setDeviceMetricsOverride',{width:375,height:812,deviceScaleFactor:1,mobile:true});
     await wait(250);
     assert.ok(await tab.eval('document.documentElement.scrollWidth <= window.innerWidth + 2'));
     console.log('✓ '+item.name+' pantalla móvil sin overflow');approved++;
     const capturaMovil=await tab.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
     await writeFile(path.join(salida,item.name.replaceAll(' ','-')+'-movil.png'),Buffer.from(capturaMovil.data,'base64'));
+    await tab.click('button[aria-label="Abrir menú"]');
+    await tab.until('document.querySelector(\'button[aria-label="Cerrar menú"]\')',item.name+' menú móvil');
+    const menuCaptura=await tab.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
+    await writeFile(path.join(salida,item.name.replaceAll(' ','-')+'-movil-menu.png'),Buffer.from(menuCaptura.data,'base64'));
     assert.equal(tab.errors.length,0,tab.errors.join(';'));
     console.log('✓ '+item.name+' sin excepciones de JavaScript');approved++;
     socket.close();

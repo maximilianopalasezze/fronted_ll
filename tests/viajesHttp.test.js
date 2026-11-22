@@ -27,7 +27,7 @@ test('GraphQL simulado: consulta nombrada con variables y solo devuelve el desti
     opcionesDestino(destinoId: $destinoId) {
       destinoId
       vuelos { id aerolinea salida regreso precio disponibles cupos }
-      hoteles { id nombre estrellas precioNoche disponibles habitaciones }
+      hoteles { id nombre estrellas precioNoche disponibles habitaciones fechaEntrada fechaSalida }
     }
   }`;
   const respuesta=await fetch('http://localhost:7401/graphql',{
@@ -39,6 +39,7 @@ test('GraphQL simulado: consulta nombrada con variables y solo devuelve el desti
   assert.equal(cuerpo.data.opcionesDestino.destinoId,'cusco');
   assert.equal(cuerpo.data.opcionesDestino.vuelos.length,2);
   assert.equal(cuerpo.data.opcionesDestino.hoteles.length,2);
+  assert.ok(cuerpo.data.opcionesDestino.hoteles.every(h=>h.fechaEntrada&&h.fechaSalida));
   assert.ok(cuerpo.data.opcionesDestino.vuelos.every(v=>v.precio>0));
 });
 test('GraphQL simulado: destino desconocido devuelve error GraphQL verificable',async()=>{

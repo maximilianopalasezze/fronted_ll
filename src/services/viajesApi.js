@@ -6,7 +6,7 @@ export const CONSULTA_OPCIONES = `query ObtenerOpcionesDestino($destinoId: ID!) 
   opcionesDestino(destinoId: $destinoId) {
     destinoId
     vuelos { id aerolinea origen salida regreso precio disponibles cupos }
-    hoteles { id nombre estrellas precioNoche disponibles habitaciones }
+    hoteles { id nombre estrellas precioNoche disponibles habitaciones fechaEntrada fechaSalida }
   }
 }`;
 

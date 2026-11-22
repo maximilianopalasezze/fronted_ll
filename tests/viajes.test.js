@@ -14,7 +14,7 @@ test('GraphQL tiene vuelos y hoteles asociados a cada destino',()=>{
     assert.equal(x.destinoId,d.id);
     assert.ok(x.vuelos.length>=2&&x.hoteles.length>=2);
     assert.ok(x.vuelos.every(v=>v.precio>0&&v.salida&&v.regreso&&typeof v.disponibles==='boolean'));
-    assert.ok(x.hoteles.every(h=>h.precioNoche>0&&h.estrellas>0&&typeof h.disponibles==='boolean'));
+    assert.ok(x.hoteles.every(h=>h.precioNoche>0&&h.estrellas>0&&h.fechaEntrada&&h.fechaSalida&&typeof h.disponibles==='boolean'));
   }
 });
 test('Un destino desconocido no tiene opciones ficticias',()=> assert.equal(opcionesDeDestino('desconocido'),null));
