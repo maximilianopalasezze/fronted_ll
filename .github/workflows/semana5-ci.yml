@@ -24,6 +24,8 @@ jobs:
         run: npm test
       - name: Compilar y generar mockServiceWorker
         run: npm run build
+      - name: Validar navegación real en Chromium (desarrollo y producción)
+        run: npm run test:browser
       - name: Verificar recursos necesarios
         shell: bash
         run: |
