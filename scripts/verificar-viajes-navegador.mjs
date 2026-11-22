@@ -89,6 +89,7 @@ try{
     await tab.send('Page.navigate',{url:item.base});
     await tab.until('document.querySelector("h1")?.textContent.includes("Tu próximo viaje")',item.name+' inicio');
     await tab.until('document.querySelectorAll(\'a[href*="/destinos/"]\').length===3',item.name+' tarjetas');
+    await tab.until('document.querySelector("img[alt^=\"Globo terráqueo\"]")?.complete && document.querySelector("img[alt^=\"Globo terráqueo\"]")?.naturalWidth > 0',item.name+' imagen portada');
     assert.ok(tab.requests.some(x=>x.method==='GET'&&x.url.includes('/api/destinos')));
     assert.equal(await tab.eval('document.querySelector("header")?.innerText.includes("Andes Viajes")'),true);
     assert.equal(await tab.eval('document.querySelector("footer")?.innerText.includes("Andes Viajes")'),true);

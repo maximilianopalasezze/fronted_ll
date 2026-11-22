@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useCallback } from 'react';
-import { ArrowRight, Globe2, MapPinned, ShieldCheck, Ticket, MoveUpRight, PlaneTakeoff, Compass } from 'lucide-react';
+import { ArrowRight, Globe2, MapPinned, ShieldCheck, Ticket, MoveUpRight } from 'lucide-react';
 import { obtenerDestinos } from '../../services/viajesApi.js';
 import { useConsultaViajes } from '../../hooks/useConsultaViajes.js';
 import DestinoCard from '../../components/viajes/DestinoCard.jsx';
@@ -25,15 +25,23 @@ export default function InicioViajes() {
           </div>
           <div className="grid grid-cols-3 gap-4 max-w-md mt-12 pt-8 border-t border-white/10"><div><b className="block text-2xl font-bold">6</b><span className="text-xs text-slate-400">Destinos</span></div><div><b className="block text-2xl font-bold">12</b><span className="text-xs text-slate-400">Vuelos de ejemplo</span></div><div><b className="block text-2xl font-bold">12</b><span className="text-xs text-slate-400">Hoteles de ejemplo</span></div></div>
         </div>
-        <div className="relative hidden lg:block" aria-hidden="true">
-          <div className="aspect-square max-w-[480px] mx-auto rounded-[3.5rem] bg-gradient-to-br from-[#266b83] via-[#3fa6a1] to-[#0c3b52] rotate-[-6deg] border-8 border-white/5 shadow-2xl overflow-hidden">
-            <div className="absolute inset-0 opacity-30" style={{backgroundImage:'radial-gradient(circle at 25% 25%, #b8fff5 2px,transparent 3px)', backgroundSize:'38px 38px'}}/>
-            <div className="absolute inset-0 grid place-items-center"><Globe2 size={220} strokeWidth={.65} className="text-white/45"/></div>
-            <span className="absolute top-12 right-12 text-7xl">✈️</span><span className="absolute bottom-14 left-14 text-7xl">🌍</span>
+        <div className="relative hidden lg:flex items-center justify-center min-w-0">
+          <div className="relative w-full max-w-[560px] aspect-[1.12]">
+            <img
+              src={`${import.meta.env.BASE_URL}images/hero/mundo.webp`}
+              alt="Globo terráqueo con lugares turísticos y un avión que viaja alrededor del mundo"
+              width="320"
+              height="254"
+              loading="eager"
+              decoding="async"
+              className="h-full w-full object-contain drop-shadow-[0_20px_40px_rgba(30,160,200,.18)]"
+              style={{
+                maskImage:'radial-gradient(ellipse at center, black 56%, rgba(0,0,0,.92) 72%, transparent 100%)',
+                WebkitMaskImage:'radial-gradient(ellipse at center, black 56%, rgba(0,0,0,.92) 72%, transparent 100%)'
+              }}
+            />
           </div>
-          <div className="absolute -bottom-6 -left-8 rounded-2xl bg-[#132c3b] border border-white/15 p-5 shadow-2xl flex items-center gap-4"><div className="bg-[#61dacf]/20 p-3 rounded-xl"><PlaneTakeoff className="text-[#61dacf]" size={29}/></div><div><p className="font-bold">Viajes a tu manera</p><p className="text-xs text-slate-400 mt-1">Explora · Compara · Descubre</p></div></div>
-        </div>
-      </div>
+        </div>      </div>
     </section>
     <section className="mx-auto max-w-7xl px-5 md:px-8 py-17" id="destinos">
       <div className="flex flex-wrap gap-4 justify-between items-end mb-9"><div><p className="text-[#78e3d8] uppercase font-bold text-xs tracking-[.2em]">DESCUBRE EL MUNDO</p><h2 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Destinos para inspirarte</h2><p className="text-slate-400 mt-3">Un lugar para cada tipo de viajero.</p></div><Link to="/destinos" className="text-[#7ce3d7] font-bold inline-flex gap-2 items-center hover:text-white">Ver todos <MoveUpRight size={18}/></Link></div>
