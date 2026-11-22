@@ -1,14 +1,11 @@
 # Andes Viajes — Semana 5 · Desarrollo Frontend II (PFY2202)
 
 **Autor:** Maximiliano Palasezze  
-**Actividad:** Integrando nuestro frontend con backend  
-**Repositorio de trabajo:** [fronted_ll, rama semana-5](https://github.com/maximilianopalasezze/fronted_ll/tree/semana-5)
+
 
 ## Descripción
 
-Agencia de viajes ficticia para explorar destinos, actividades populares, vuelos y hoteles. La interfaz está hecha con **React, Vite, Tailwind CSS y React Router**. El frontend consume **REST y GraphQL simulados mediante Mock Service Worker (MSW)**.
-
-> **Proyecto académico:** precios, fechas, hoteles, vuelos y disponibilidad son ejemplos. La aplicación no realiza compras ni reservas.
+Agencia de viajes para explorar destinos, actividades populares, vuelos y hoteles. La interfaz está hecha con **React, Vite, Tailwind CSS y React Router**. El frontend consume **REST y GraphQL simulados mediante Mock Service Worker (MSW)**.
 
 ## Cómo funciona
 
@@ -50,18 +47,6 @@ npm test
 npm run test:browser
 npm run dev
 ```
-
-Para una copia ya clonada:
-
-```powershell
-git fetch origin
-git switch --track origin/semana-5
-npm ci
-npm run dev
-```
-
-Si la rama ya existe localmente, usa `git switch semana-5` y luego `git pull`.
-
 ### Compilación
 
 ```powershell
@@ -96,8 +81,3 @@ npm test
 npm run build
 ```
 
-Consulta [la matriz de evaluación y las evidencias](docs/semana5-evaluacion.md).
-
-**Publicación:** [Andes Viajes — Semana 5](https://maximilianopalasezze.github.io/fronted_ll/semana5/). GitHub Actions comprobó el build y GitHub Pages confirmó el despliegue; las pruebas de navegador automáticas se ejecutaron en desarrollo y producción local. La librería de Semana 4 permanece en `/semana4/` y Supermarket en la raíz.
-
-**Nombre de repositorio:** la pauta menciona explícitamente `viajes-nombre-apellido-siglaCurso`; mantenemos este repositorio para conservar el historial de clases, pero el nombre deberá aclararse o ajustarse antes de la entrega final.
