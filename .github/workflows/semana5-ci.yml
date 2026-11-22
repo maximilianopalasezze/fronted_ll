@@ -58,7 +58,7 @@ jobs:
           fi
 
   publicar:
-    name: Publicar HorizonteViajes en /semana5/
+    name: Publicar Andes Viajes en /semana5/
     needs: validar
     if: github.event_name == 'push' && github.ref == 'refs/heads/semana-5'
     runs-on: ubuntu-latest
@@ -96,6 +96,6 @@ jobs:
           fi
       - name: Documentar rutas
         run: |
-          echo "HorizonteViajes: https://maximilianopalasezze.github.io/fronted_ll/semana5/" >> "$GITHUB_STEP_SUMMARY"
+          echo "Andes Viajes: https://maximilianopalasezze.github.io/fronted_ll/semana5/" >> "$GITHUB_STEP_SUMMARY"
           echo "Librería: https://maximilianopalasezze.github.io/fronted_ll/semana4/" >> "$GITHUB_STEP_SUMMARY"
           echo "Supermarket: https://maximilianopalasezze.github.io/fronted_ll/" >> "$GITHUB_STEP_SUMMARY"

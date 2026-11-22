@@ -4,6 +4,7 @@ import { ArrowLeft, CalendarDays, Plane, Hotel, MapPin, CheckCircle2, Compass, R
 import { obtenerDestinos, obtenerOpciones } from '../../services/viajesApi.js';
 import { useConsultaViajes } from '../../hooks/useConsultaViajes.js';
 import EstadosViajes from '../../components/viajes/EstadosViajes.jsx';
+import { estiloFotoDestino } from '../../utils/imagenesDestinos.js';
 
 const moneda=(n)=>new Intl.NumberFormat('es-CL',{style:'currency',currency:'CLP',maximumFractionDigits:0}).format(n);
 const fecha=(t)=>new Date(t+'T12:00:00').toLocaleDateString('es-CL',{day:'numeric',month:'short',year:'numeric'});
@@ -26,6 +27,10 @@ export default function DetalleViaje() {
         <div><p className="uppercase text-[#75e4d7] tracking-[.19em] font-bold text-xs">PLANIFICA TU VIAJE</p><h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mt-3">{destino ? destino.emoji+' '+destino.nombre : 'Explora tu destino'}</h1><p className="text-slate-400 mt-3 max-w-2xl leading-relaxed">{destino?.descripcion||'Consultando información de tu próximo viaje...'}</p>{destino && <p className="flex gap-2 items-center mt-4 text-[#80e6dc] font-semibold text-sm"><MapPin size={16}/>{destino.pais}</p>}</div>
         <button onClick={refrescar} className="rounded-xl inline-flex items-center gap-2 border border-[#73e0d6]/40 px-4 py-3 text-[#80e6dc] font-semibold hover:bg-[#69d9cd]/10"><RefreshCw size={17}/>Actualizar información</button>
       </div>
+      {destino && <div className="relative mt-7 h-56 sm:h-72 max-w-[650px] overflow-hidden rounded-3xl border border-white/10 shadow-xl shadow-black/20">
+        <div role="img" aria-label={'Fotografía de ' + destino.nombre} className="absolute inset-0" style={estiloFotoDestino(destino.id)}/>
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#081521]/85 to-transparent p-5 text-xs font-semibold text-white">{destino.nombre} · {destino.pais}</div>
+      </div>}
       {destino && <div className="flex flex-wrap gap-2 mt-7 mb-7">{destino.actividades.map(a=><span key={a} className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs text-slate-200"><Compass size={13} className="inline mr-1.5 text-[#71e0d4]"/>{a}</span>)}</div>}
       <div className="mt-9"><EstadosViajes cargando={cargaPrincipal} actualizando={listado.actualizando||opciones.actualizando} error={errorPrincipal} refrescar={refrescar} hayDatos={!!opciones.datos} etiqueta="las opciones de viaje"/></div>
       {opciones.datos && <div className="grid lg:grid-cols-2 gap-7 mt-8">

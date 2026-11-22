@@ -90,7 +90,11 @@ try{
     await tab.until('document.querySelector("h1")?.textContent.includes("Tu próximo viaje")',item.name+' inicio');
     await tab.until('document.querySelectorAll(\'a[href*="/destinos/"]\').length===3',item.name+' tarjetas');
     assert.ok(tab.requests.some(x=>x.method==='GET'&&x.url.includes('/api/destinos')));
-    console.log('✓ '+item.name+' carga inicial y GET REST');approved++;
+    assert.equal(await tab.eval('document.querySelector("header")?.innerText.includes("Andes Viajes")'),true);
+    assert.equal(await tab.eval('document.querySelector("footer")?.innerText.includes("Andes Viajes")'),true);
+    await tab.until('getComputedStyle(document.querySelector(\'a[href="#/destinos/paris"] [role="img"]\')).backgroundImage.includes("andes-destinos-sprite.webp")',item.name+' fotografía París');
+    assert.equal(await tab.eval('(async()=>{let r=await fetch("./images/destinos/andes-destinos-sprite.webp");return r.ok && (await r.blob()).type==="image/webp"})()'),true);
+    console.log('✓ '+item.name+' carga inicial, marca, fotos y GET REST');approved++;
     const capturaInicio=await tab.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
     await writeFile(path.join(salida,item.name.replaceAll(' ','-')+'-inicio.png'),Buffer.from(capturaInicio.data,'base64'));
     await tab.click('a[href="#/destinos"]');

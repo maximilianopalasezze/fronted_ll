@@ -1,4 +1,4 @@
-# HorizonteViajes — Semana 5 · Desarrollo Frontend II (PFY2202)
+# Andes Viajes — Semana 5 · Desarrollo Frontend II (PFY2202)
 
 **Autor:** Maximiliano Palasezze  
 **Actividad:** Integrando nuestro frontend con backend  
@@ -19,6 +19,7 @@ Agencia de viajes ficticia para explorar destinos, actividades populares, vuelos
 - Caché en memoria de 5 minutos, deduplicación y protección de respuestas atrasadas por generación.
 - Hook `useConsultaViajes` con `useReducer`, `useEffect`, carga inicial, reintentos y refresh sin ocultar datos.
 - `HashRouter` permite navegar por GitHub Pages sin servidor para reescribir rutas.
+- Las seis fotografías entregadas para los destinos se publican como un recurso WebP optimizado (sprite) en `public/images/destinos/andes-destinos-sprite.webp`. El componente `DestinoCard` y la vista de detalle muestran cada foto según el destino.
 
 ### Estructura
 
@@ -30,6 +31,7 @@ src/data/viajesMock.js             Datos ficticios solo para los handlers
 src/services/viajesApi.js          Cliente HTTP, consulta GraphQL y caché
 src/hooks/useConsultaViajes.js     useReducer + useEffect para estados
 src/components/viajes/            Layout, tarjetas y estados reutilizables
+src/utils/imagenesDestinos.js       Imagen y posición de cada destino en el recurso WebP
 src/pages/viajes/                 Inicio, destinos, detalle y 404
 tests/viajes.test.js               Tests de datos y reducer
 tests/viajesHttp.test.js           Tests HTTP de REST y GraphQL usando MSW
@@ -96,6 +98,6 @@ npm run build
 
 Consulta [la matriz de evaluación y las evidencias](docs/semana5-evaluacion.md).
 
-**Publicación:** [HorizonteViajes — Semana 5](https://maximilianopalasezze.github.io/fronted_ll/semana5/). GitHub Actions comprobó el build y GitHub Pages confirmó el despliegue; las pruebas de navegador automáticas se ejecutaron en desarrollo y producción local. La librería de Semana 4 permanece en `/semana4/` y Supermarket en la raíz.
+**Publicación:** [Andes Viajes — Semana 5](https://maximilianopalasezze.github.io/fronted_ll/semana5/). GitHub Actions comprobó el build y GitHub Pages confirmó el despliegue; las pruebas de navegador automáticas se ejecutaron en desarrollo y producción local. La librería de Semana 4 permanece en `/semana4/` y Supermarket en la raíz.
 
 **Nombre de repositorio:** la pauta menciona explícitamente `viajes-nombre-apellido-siglaCurso`; mantenemos este repositorio para conservar el historial de clases, pero el nombre deberá aclararse o ajustarse antes de la entrega final.
