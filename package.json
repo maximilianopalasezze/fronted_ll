@@ -9,15 +9,9 @@
     "prebuild": "msw init public --save",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node --test tests/viajes.test.js",
-    "test:browser:semana4": "node --experimental-websocket scripts/verificar-navegador.mjs",
-    "test:legacy": "node --test tests/rest.test.js tests/http.test.js tests/api.test.js tests/estaticos.test.js tests/inventario.test.js"
+    "test": "node --test tests/viajes.test.js tests/viajesHttp.test.js"
   },
   "dependencies": {
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
-    "@mui/icons-material": "^5.16.14",
-    "@mui/material": "^5.16.14",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0",
