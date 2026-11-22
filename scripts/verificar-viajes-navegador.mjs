@@ -61,9 +61,9 @@ try{
   let endpoint=null;
   for(let i=0;i<100;i++){try{const resp=await fetch('http://127.0.0.1:'+port+'/json/version');if(resp.ok){endpoint=true;break}}catch{}await wait(100)}
   if(!endpoint)throw Error('No inició Chromium.');
-  server=await createServer({server:{port:5517,strictPort:true}});
+  server=await createServer({server:{host:'127.0.0.1',port:5517,strictPort:true}});
   await server.listen();
-  prod=await preview({preview:{port:4517,strictPort:true}});
+  prod=await preview({preview:{host:'127.0.0.1',port:4517,strictPort:true}});
   for(const item of [{name:'desarrollo',base:'http://127.0.0.1:5517/'},{name:'producción local',base:'http://127.0.0.1:4517/'}]){
     const info=await (await fetch('http://127.0.0.1:'+port+'/json/new?about:blank',{method:'PUT'})).json();
     const socket=new WebSocket(info.webSocketDebuggerUrl);
