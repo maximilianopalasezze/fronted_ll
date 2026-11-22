@@ -44,3 +44,12 @@ Actividad: **Integrando nuestro frontend con backend** (PFY2202). La aplicación
 8. Revisar Consola sin errores inesperados y rutas 404.
 
 No dar por realizadas las capturas manuales si no fueron tomadas. Un script de Node que aprueba no equivale por sí solo a una comprobación de varios navegadores.
+
+## Estado de la primera implementación (22 de noviembre de 2026)
+
+- **Código en GitHub:** rama `semana-5`, independiente de `main`, `semana-4` y `gh-pages`.
+- **REST y GraphQL con MSW:** 9 pruebas automatizadas aprobadas, incluidos GET, POST, errores, validación y reducer.
+- **Navegador:** 10 comprobaciones en Chromium, repartidas entre desarrollo y producción local, con capturas de inicio, detalle y menú móvil en el artefacto `semana5-evidencias-chromium` de GitHub Actions.
+- **Publicación:** `https://maximilianopalasezze.github.io/fronted_ll/semana5/`; GitHub Pages notificó despliegue correcto, aunque la URL pública debe revisarse visualmente desde un navegador del estudiante.
+- **Pendiente del nivel máximo del criterio de 15 puntos:** comprobar también Firefox y Vivaldi/Edge y adjuntar evidencias con fecha y resolución de pantalla.
+- **Pendiente administrativo:** validar con el docente el nombre exigido `viajes-nombre-apellido-siglaCurso`, ya que se utilizó `fronted_ll` para mantener las ramas de clase.

@@ -45,6 +45,7 @@ git clone --branch semana-5 --single-branch https://github.com/maximilianopalase
 cd fronted_ll
 npm ci
 npm test
+npm run test:browser
 npm run dev
 ```
 
@@ -95,6 +96,6 @@ npm run build
 
 Consulta [la matriz de evaluación y las evidencias](docs/semana5-evaluacion.md).
 
-**Publicación:** se preparará el destino `/fronted_ll/semana5/` por separado. La librería de Semana 4 permanece publicada en `/semana4/` y Supermarket se mantiene en la raíz. No debe afirmarse que la página de Semana 5 está publicada hasta comprobar su despliegue.
+**Publicación:** [HorizonteViajes — Semana 5](https://maximilianopalasezze.github.io/fronted_ll/semana5/). GitHub Actions comprobó el build y GitHub Pages confirmó el despliegue; las pruebas de navegador automáticas se ejecutaron en desarrollo y producción local. La librería de Semana 4 permanece en `/semana4/` y Supermarket en la raíz.
 
 **Nombre de repositorio:** la pauta menciona explícitamente `viajes-nombre-apellido-siglaCurso`; mantenemos este repositorio para conservar el historial de clases, pero el nombre deberá aclararse o ajustarse antes de la entrega final.
