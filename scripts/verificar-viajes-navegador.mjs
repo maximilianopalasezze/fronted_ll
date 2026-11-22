@@ -2,7 +2,7 @@
 // Sin dependencias de test adicionales. Node 20 requiere --experimental-websocket.
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
-import { access, mkdtemp, rm } from 'node:fs/promises';
+import { access, mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { createServer, preview } from 'vite';
@@ -50,6 +50,8 @@ class CDP {
     await this.eval('(()=>{const el=document.querySelector('+JSON.stringify(selector)+');if(!el)throw Error("No existe control");el.click()})()');
   }
 }
+const salida=path.resolve('output/semana5');
+await mkdir(salida,{recursive:true});
 const tmp=await mkdtemp(path.join(tmpdir(),'viajes-chrome-'));
 const port=19223;
 let browser,server,prod;
@@ -76,6 +78,8 @@ try{
     await tab.until('document.querySelectorAll(\'a[href*="/destinos/"]\').length===3',item.name+' tarjetas');
     assert.ok(tab.requests.some(x=>x.method==='GET'&&x.url.includes('/api/destinos')));
     console.log('✓ '+item.name+' carga inicial y GET REST');approved++;
+    const capturaInicio=await tab.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
+    await writeFile(path.join(salida,item.name.replaceAll(' ','-')+'-inicio.png'),Buffer.from(capturaInicio.data,'base64'));
     await tab.click('a[href="#/destinos"]');
     await tab.until('document.querySelectorAll(\'a[href*="/destinos/"]\').length===6',item.name+' destinos');
     console.log('✓ '+item.name+' catálogo de seis destinos');approved++;
@@ -84,11 +88,15 @@ try{
     assert.ok(tab.requests.some(x=>x.method==='POST'&&x.url.includes('/graphql')));
     assert.ok(await tab.eval('document.body.innerText.includes("Andes Boutique")'));
     console.log('✓ '+item.name+' POST GraphQL y opciones específicas de Cusco');approved++;
+    const capturaDetalle=await tab.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
+    await writeFile(path.join(salida,item.name.replaceAll(' ','-')+'-detalle.png'),Buffer.from(capturaDetalle.data,'base64'));
     await tab.click('button:has(svg)'); // la vista mantiene navegación sin recarga; control visual
     await tab.send('Emulation.setDeviceMetricsOverride',{width:375,height:812,deviceScaleFactor:1,mobile:true});
     await wait(250);
     assert.ok(await tab.eval('document.documentElement.scrollWidth <= window.innerWidth + 2'));
     console.log('✓ '+item.name+' pantalla móvil sin overflow');approved++;
+    const capturaMovil=await tab.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
+    await writeFile(path.join(salida,item.name.replaceAll(' ','-')+'-movil.png'),Buffer.from(capturaMovil.data,'base64'));
     assert.equal(tab.errors.length,0,tab.errors.join(';'));
     console.log('✓ '+item.name+' sin excepciones de JavaScript');approved++;
     socket.close();

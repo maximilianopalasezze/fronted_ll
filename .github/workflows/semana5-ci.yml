@@ -38,6 +38,12 @@ jobs:
           name: semana5-agencia-viajes-dist
           path: dist/
           if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: semana5-evidencias-chromium
+          path: output/semana5/
+          if-no-files-found: warn
       - name: Actualizar lockfile y worker de MSW para reproducibilidad
         if: github.event_name == 'push'
         shell: bash
@@ -50,3 +56,46 @@ jobs:
             git commit -m "Semana 5: sincronizar lockfile y Service Worker [skip ci]"
             git push origin HEAD:semana-5
           fi
+
+  publicar:
+    name: Publicar HorizonteViajes en /semana5/
+    needs: validar
+    if: github.event_name == 'push' && github.ref == 'refs/heads/semana-5'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Actualizar solamente la carpeta semana5 en gh-pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin gh-pages
+          git worktree add --detach ../gh-pages-semana5 origin/gh-pages
+          mkdir -p ../gh-pages-semana5/semana5
+          find ../gh-pages-semana5/semana5 -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
+          cp -a dist/. ../gh-pages-semana5/semana5/
+          cd ../gh-pages-semana5
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- semana5
+          if git diff --cached --quiet; then
+            echo "Semana 5 ya estaba actualizada."
+          else
+            git commit -m "Publicar agencia de viajes Semana 5 en subcarpeta"
+            git push origin HEAD:gh-pages
+          fi
+      - name: Documentar rutas
+        run: |
+          echo "HorizonteViajes: https://maximilianopalasezze.github.io/fronted_ll/semana5/" >> "$GITHUB_STEP_SUMMARY"
+          echo "Librería: https://maximilianopalasezze.github.io/fronted_ll/semana4/" >> "$GITHUB_STEP_SUMMARY"
+          echo "Supermarket: https://maximilianopalasezze.github.io/fronted_ll/" >> "$GITHUB_STEP_SUMMARY"
