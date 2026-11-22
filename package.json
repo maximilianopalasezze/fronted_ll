@@ -9,8 +9,9 @@
     "prebuild": "msw init public --save",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node --test",
-    "test:browser:semana4": "node --experimental-websocket scripts/verificar-navegador.mjs"
+    "test": "node --test tests/viajes.test.js",
+    "test:browser:semana4": "node --experimental-websocket scripts/verificar-navegador.mjs",
+    "test:legacy": "node --test tests/rest.test.js tests/http.test.js tests/api.test.js tests/estaticos.test.js tests/inventario.test.js"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -20,7 +21,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0",
-    "msw": "^2.15.0"
+    "msw": "^2.15.0",
+    "lucide-react": "^0.468.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
