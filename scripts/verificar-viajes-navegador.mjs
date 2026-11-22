@@ -2,7 +2,7 @@
 // Sin dependencias de test adicionales. Node 20 requiere --experimental-websocket.
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
-import { access, mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
+import { access, mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { createServer, preview } from 'vite';
@@ -53,16 +53,29 @@ class CDP {
 const salida=path.resolve('output/semana5');
 await mkdir(salida,{recursive:true});
 const tmp=await mkdtemp(path.join(tmpdir(),'viajes-chrome-'));
-const port=19223;
+let port=0;
 let browser,server,prod;
 let approved=0;
 try{
   const executable=await chromePath();
+  let chromeStderr='';
   browser=spawn(executable,['--headless=new','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--no-first-run','--no-default-browser-check',
-    '--remote-allow-origins=*','--remote-debugging-port='+port,'--user-data-dir='+tmp,'about:blank'],{stdio:'ignore'});
-  let endpoint=null;
-  for(let i=0;i<100;i++){try{const resp=await fetch('http://127.0.0.1:'+port+'/json/version');if(resp.ok){endpoint=true;break}}catch{}await wait(100)}
-  if(!endpoint)throw Error('No inició Chromium.');
+    '--remote-allow-origins=*','--remote-debugging-port=0','--user-data-dir='+tmp,'about:blank'],{stdio:['ignore','ignore','pipe']});
+  browser.stderr.on('data',chunk=>{ chromeStderr=(chromeStderr+chunk.toString()).slice(-4000); });
+  let endpoint=false;
+  for(let i=0;i<200;i++){
+    try {
+      const registro=(await readFile(path.join(tmp,'DevToolsActivePort'),'utf8')).split('\\n')[0].trim();
+      if(/^\\d+$/.test(registro)){
+        port=Number(registro);
+        const respuesta=await fetch('http://127.0.0.1:'+port+'/json/version');
+        if(respuesta.ok){ endpoint=true; break; }
+      }
+    }catch{}
+    if(browser.exitCode!==null)break;
+    await wait(100);
+  }
+  if(!endpoint)throw Error('No inició Chromium. Código: '+browser.exitCode+'; stderr: '+chromeStderr);
   server=await createServer({server:{host:'127.0.0.1',port:5517,strictPort:true}});
   await server.listen();
   prod=await preview({preview:{host:'127.0.0.1',port:4517,strictPort:true}});
