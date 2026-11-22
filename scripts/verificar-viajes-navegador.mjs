@@ -65,8 +65,8 @@ try{
   let endpoint=false;
   for(let i=0;i<200;i++){
     try {
-      const registro=(await readFile(path.join(tmp,'DevToolsActivePort'),'utf8')).split('\\n')[0].trim();
-      if(/^\\d+$/.test(registro)){
+      const registro=(await readFile(path.join(tmp,'DevToolsActivePort'),'utf8')).trim().split(String.fromCharCode(10))[0];
+      if(Number.isInteger(Number(registro)) && Number(registro)>0){
         port=Number(registro);
         const respuesta=await fetch('http://127.0.0.1:'+port+'/json/version');
         if(respuesta.ok){ endpoint=true; break; }
