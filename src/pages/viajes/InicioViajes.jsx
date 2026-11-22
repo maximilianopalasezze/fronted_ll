@@ -41,7 +41,8 @@ export default function InicioViajes() {
               }}
             />
           </div>
-        </div>      </div>
+        </div>
+      </div>
     </section>
     <section className="mx-auto max-w-7xl px-5 md:px-8 py-17" id="destinos">
       <div className="flex flex-wrap gap-4 justify-between items-end mb-9"><div><p className="text-[#78e3d8] uppercase font-bold text-xs tracking-[.2em]">DESCUBRE EL MUNDO</p><h2 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Destinos para inspirarte</h2><p className="text-slate-400 mt-3">Un lugar para cada tipo de viajero.</p></div><Link to="/destinos" className="text-[#7ce3d7] font-bold inline-flex gap-2 items-center hover:text-white">Ver todos <MoveUpRight size={18}/></Link></div>
