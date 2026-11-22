@@ -112,7 +112,7 @@ try{
     const capturaMovil=await tab.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
     await writeFile(path.join(salida,item.name.replaceAll(' ','-')+'-movil.png'),Buffer.from(capturaMovil.data,'base64'));
     await tab.click('button[aria-label="Abrir menú"]');
-    await tab.until('document.querySelector(\'button[aria-label="Cerrar menú"]\')',item.name+' menú móvil');
+    await tab.until('document.querySelector("[aria-expanded=true]") !== null',item.name+' menú móvil');
     const menuCaptura=await tab.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});
     await writeFile(path.join(salida,item.name.replaceAll(' ','-')+'-movil-menu.png'),Buffer.from(menuCaptura.data,'base64'));
     assert.equal(tab.errors.length,0,tab.errors.join(';'));
